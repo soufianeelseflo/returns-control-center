@@ -1,0 +1,1 @@
+import Link from "next/link"; export default function NotFound(){return <main><div className="card" style={{padding:24}}><div className="section-title">404</div><h1>Return case not found</h1><p className="muted">The RMA may have been archived or the identifier is invalid.</p><Link className="btn" href="/">Back to returns</Link></div></main>}

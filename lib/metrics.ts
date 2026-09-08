@@ -1,0 +1,2 @@
+import type {ReturnCase} from "./types";
+export function returnMetrics(rows:ReturnCase[]){const open=rows.filter(r=>!["refunded","rejected"].includes(r.status));const liability=open.reduce((s,r)=>s+r.refundAmount,0);const highRisk=open.filter(r=>r.riskScore>=70).length;const restockValue=rows.filter(r=>r.restockable).reduce((s,r)=>s+r.amount,0);return{open:open.length,liability,highRisk,restockValue,averageRisk:Math.round(rows.reduce((s,r)=>s+r.riskScore,0)/Math.max(1,rows.length))}}

@@ -1,0 +1,3 @@
+import { NextRequest,NextResponse } from "next/server"; import { returns } from "@/lib/data";
+const allowed=new Set(["requested","approved","in_transit","received","refunded","rejected"]);
+export async function PATCH(req:NextRequest,{params}:{params:Promise<{id:string}>}){const {id}=await params;const body=await req.json().catch(()=>null);if(!body||!allowed.has(body.status))return NextResponse.json({error:"Invalid status"},{status:400});const item=returns.find(r=>r.id===id);if(!item)return NextResponse.json({error:"Return not found"},{status:404});return NextResponse.json({data:{...item,status:body.status},audit:{action:"status_changed",at:new Date().toISOString()}})}
