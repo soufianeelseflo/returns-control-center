@@ -24,7 +24,7 @@ export default function Page() {
   const open = returns.filter((item) => !["refunded", "rejected"].includes(item.status));
   const liability = open.reduce((sum, item) => sum + item.refundAmount, 0);
   const restockable = returns.filter((item) => item.restockable).length;
-  const manualReview = open.filter((item) => item.risk === "high").length;
+  const manualReview = open.filter((item) => item.riskScore >= 70).length;
   const restockRate = Math.round((restockable / returns.length) * 100);
 
   const kpis = [
